@@ -1,6 +1,11 @@
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+var __webpack_exports__ = {};
+
+;// CONCATENATED MODULE: ./src/scripts/api.js
 
 const URL = new URLSearchParams(window.location.search)
-export default (async function () {
+/* harmony default export */ const api = ((async function () {
     const NEWS = document.querySelector(".nyhed")
     //her får jeg fat i min div i min html 
     await fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=F7Q16NruiZVUiGVH934NpdQgCBkkIz2s')
@@ -24,4 +29,10 @@ export default (async function () {
             });
             console.log(data);
         });
-})()
+})());
+;// CONCATENATED MODULE: ./src/index.js
+
+
+/******/ })()
+;
+//# sourceMappingURL=main.js.map
