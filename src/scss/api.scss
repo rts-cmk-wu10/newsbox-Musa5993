@@ -9,20 +9,61 @@
 
     }
 
-
-
-
     .menu_item {
         display: flex;
+
         justify-content: space-between;
+        gap: 2rem;
+        width: auto;
+        padding: 3rem;
+        
+        border-bottom: 2.5px solid #1c9ab6;
+     
         list-style: none;
+        
     }
 
     .gear {
         color: grey;
-
-
-
-
     }
+
+    .box {
+        font-size: 30pt bold;
+        align-items: center;
+        color: #6e8ca0;
+    }
+
+    .menu__top--searchBar {
+        position: relative;
+        border-bottom: 2.5px solid #1c9ab6;
+     
+    }
+
+    .menu__top--searchBar input {
+        width: 100%;
+        padding: 1.5em;
+        border-radius: 2px;
+        border: none;
+        background-color: #c8d1d3;
+    }
+
+    .menu__top--searchBar button {
+        padding: 2em;
+        background-color: transparent;
+        border: none;
+        color: #f0f3f4;
+        position: absolute;
+        right: 0;
+    }
+img{
+    width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+h2{
+
+    display: grid;
+
+
+}
 }

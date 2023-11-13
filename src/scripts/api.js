@@ -1,27 +1,61 @@
 
-const URL = new URLSearchParams(window.location.search)
-export default (async function () {
-    const NEWS = document.querySelector(".nyhed")
-    //her får jeg fat i min div i min html 
-    await fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=F7Q16NruiZVUiGVH934NpdQgCBkkIz2s')
-        .then(response => response.json())
-        
-        .then(data => {
-         
+const categories = [
+    "arts",
+    "automobiles",
+    "books",
+    "business",
+    "fashion",
+    "food",
+    "health",
+    "home",
+    "insider",
+    "magazine",
+    "movies",
+    "nyregion",
+    "obituaries",
+    "opinion",
+    "politics",
+    "realestate",
+    "science",
+    "sundayreview",
+    "technology",
+    "theater",
+    "t-magazine",
+    "travel",
+    "upshot",
+    "us",
+    "world"
+]
+const CATEGORIES = document.querySelector('.nyhed')
 
-            data.results.forEach((element, index) => {
-                if (index >= 10) return
-                // her kalder jeg at jeg skal kun have 10 af element så jeg sætter en limte på dem  at de skal hvis list er mere end 10 skal den kom til den første 
+categories.forEach(category => {
+    const CATEGORY = document.createElement('details')
 
-                NEWS.innerHTML += `<img src="${element.multimedia[2].url}" alt="" srcset="">`
-                // her siger jeg første at den skal kalde på min div og så ind i min div skal den lave en img tag hvor den skal vise min billde i 
-                    NEWS.innerHTML += `<h2>${element.title}</h2>`
-                    //her siger at den skal lave en h2 i min html og tage fat i element title fra api 
-                NEWS.innerHTML += `<p>${element.abstract}</p"`
-                //her siger at den skal lave nogle p tag ved at få fat i element og der efter i abstract for at få fat i nogle tekst
-                
-                    ;
-            });
-            console.log(data);
-        });
-})()
+  CATEGORY.innerHTML = `
+        <summary class="category__summary">
+            <img class="category__logo" src="./images/newyork.png">
+            <h2>${category}</h2>
+            <span class="material-symbols-outlined category__dropdown">expand_more</span>
+        </summary>
+        `
+ 
+    CATEGORY.querySelector('.category__dropdown').addEventListener('click', function () {
+        if (CATEGORY.querySelector('.category__content')) return
+ 
+        fetch(`https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=uZhoGPSEKtSyAp1AGwJYzO8qDAJsjMvc`)
+            .then(res => res.json())
+            .then(data => {
+                data.results.forEach(element => {
+                    CATEGORY.innerHTML += `
+                        <img src='https://picsum.photos/200' alt='headline picture'
+                        <section class='category__container'>
+                            <h2 class='category__headline'>${element.title} </h2>
+                            <p class='category__description'>${element.abstract}</p>
+                        </section>
+                    `
+                })
+            })
+    })
+ 
+    CATEGORIES.append(CATEGORY)  
+})
