@@ -1,55 +1,142 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 602:
+/***/ (() => {
+
+
+const categories = [
+    "arts",
+    "automobiles",
+    "books",
+    "business",
+    "fashion",
+    "food",
+    "health",
+    "home",
+    "insider",
+    "magazine",
+    "movies",
+    "nyregion",
+    "obituaries",
+    "opinion",
+    "politics",
+    "realestate",
+    "science",
+    "sundayreview",
+    "technology",
+    "theater",
+    "t-magazine",
+    "travel",
+    "upshot",
+    "us",
+    "world"
+]
+const CATEGORIES = document.querySelector('.nyhed')
+
+categories.forEach(category => {
+    const CATEGORY = document.createElement('details')
+
+  CATEGORY.innerHTML = `
+        <summary class="category__summary">
+            <img class="category__logo"src="images/newyork.png" alt="">
+            <h2 class='category__head'>${category}</h2>
+            <span class="material-symbols-outlined category__dropdown">more</span>
+        </summary>
+        `
+ 
+    CATEGORY.querySelector('.category__dropdown').addEventListener('click', function () {
+        if (CATEGORY.querySelector('.category__content')) return
+ 
+        fetch(`https://api.nytimes.com/svc/topstories/v2/${category}.json?api-key=uZhoGPSEKtSyAp1AGwJYzO8qDAJsjMvc`)
+            .then(res => res.json())
+            .then(data => {
+                data.results.forEach(element => {
+                    CATEGORY.innerHTML += //`
+                       // <img src='https://picsum.photos/200' alt='headline picture'
+                        `<img src="${element.multimedia[2].url}" alt="">
+                        <section class='category__container'>
+                            <h3 class='category__headline'>${element.title} </h3>
+                            <p class='category__description'>${element.abstract}</p>
+                        </section>
+                    `
+                })
+            })
+    })
+ 
+    CATEGORIES.append(CATEGORY)  
+})
+
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/************************************************************************/
 var __webpack_exports__ = {};
-
-;// CONCATENATED MODULE: ./src/scripts/headline.js
-/* harmony default export */ const headline = ((function headline() {
-	const headline = "Welcome to the webpage"
-	document.querySelector("h1").innerText = headline
-})());
-
-;// CONCATENATED MODULE: ./src/scripts/burgermenu.js
-/* harmony default export */ const burgermenu = ((function burgermenu() {
-	const button = document.querySelector(".menuButton")
-	const menu = document.querySelector(".primaryMenu")
-
-	button.addEventListener("click", clickHandler)
-
-	function clickHandler() {
-		menu.style.right = menu.style.right == "-19em" ? "0" : "-19em"
-	}
-})());
-;// CONCATENATED MODULE: ./src/scripts/api.js
-const URL = new URLSearchParams(window.location.search)
-/* harmony default export */ const api = ((async function () {
-    const NEWS = document.querySelector(".nyhed")
-    //her får jeg fat i min div i min html 
-    await fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=F7Q16NruiZVUiGVH934NpdQgCBkkIz2s')
-        .then(response => response.json())
-        
-        .then(data => {
-         
-
-            data.results.forEach((element, index) => {
-                if (index >= 10) return
-                // her kalder jeg at jeg skal kun have 10 af element så jeg sætter en limte på dem  at de skal hvis list er mere end 10 skal den kom til den første 
-
-                NEWS.innerHTML += `<img src="${element.multimedia[2].url}" alt="" srcset="">`
-                // her siger jeg første at den skal kalde på min div og så ind i min div skal den lave en img tag hvor den skal vise min billde i 
-                    NEWS.innerHTML += `<h2>${element.title}</h2>`
-                    //her siger at den skal lave en h2 i min html og tage fat i element title fra api 
-                NEWS.innerHTML += `<p>${element.abstract}</p"`
-                //her siger at den skal lave nogle p tag ved at få fat i element og der efter i abstract for at få fat i nogle tekst
-                
-                    ;
-            });
-            console.log(data);
-        });
-})());
-;// CONCATENATED MODULE: ./src/index.js
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/* harmony import */ var _scripts_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(602);
+/* harmony import */ var _scripts_api__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scripts_api__WEBPACK_IMPORTED_MODULE_0__);
 
 
-
+})();
 
 /******/ })()
 ;

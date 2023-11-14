@@ -60,10 +60,17 @@ img{
   height: 100px;
   border-radius: 50%;
 }
-h2{
+.category__head{
 
-    display: grid;
-
-
+  font-size: 18px;
+  text-transform: uppercase;
+  
+  
+}
+.category__summary{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5%;
+    padding-top: 5%;
 }
 }
